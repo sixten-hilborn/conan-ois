@@ -1,8 +1,6 @@
-from conans import ConanFile
+from conans import ConanFile, CMake, tools
 import os
 import fnmatch
-from conans.tools import get, patch, SystemPackageTool
-from conans import CMake
 
 
 def apply_patches(source, dest):
@@ -10,7 +8,7 @@ def apply_patches(source, dest):
         for filename in fnmatch.filter(filenames, '*.patch'):
             patch_file = os.path.join(root, filename)
             dest_path = os.path.join(dest, os.path.relpath(root, source))
-            patch(base_path=dest_path, patch_file=patch_file)
+            tools.patch(base_path=dest_path, patch_file=patch_file)
 
 
 class OisConan(ConanFile):
@@ -28,21 +26,21 @@ class OisConan(ConanFile):
 
     def system_requirements(self):
         if self.settings.os == "Linux":
-            installer = SystemPackageTool()
+            installer = tools.SystemPackageTool()
             if self.settings.arch == 'x86':
                 installer.install("libx11-dev:i386")
             elif self.settings.arch == 'x86_64':
                 installer.install("libx11-dev:amd64")
 
     def source(self):
-        get("https://github.com/wgois/OIS/archive/v1-3.zip")
+        tools.get("https://github.com/wgois/OIS/archive/v1-3.zip")
         os.rename('CMakeLists-OIS.txt', '{0}/CMakeLists.txt'.format(self.folder))
         apply_patches('patches', self.folder)
 
     def build(self):
-        cmake = CMake(self.settings)
-        cmake.configure(self, build_dir='_build')
-        cmake.build(self)
+        cmake = CMake(self)
+        cmake.configure(build_dir='_build')
+        cmake.build()
 
     def package(self):
         self.copy(pattern="*.h", dst="include/OIS", src="{0}/includes".format(self.folder))
