@@ -12,7 +12,7 @@ def apply_patches(source, dest):
 
 
 class OisConan(ConanFile):
-    name = "OIS"
+    name = "ois"
     description = "OIS (Object Oriented Input System) is a cross-platform library to deal with input devices such as keyboards, mice and joysticks"
     version = "1.3"
     folder = 'OIS-1-3'
