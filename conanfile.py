@@ -15,7 +15,7 @@ class OisConan(ConanFile):
     name = "ois"
     description = "OIS (Object Oriented Input System) is a cross-platform library to deal with input devices such as keyboards, mice and joysticks"
     version = "1.3"
-    folder = 'OIS-1-3'
+    folder = 'OIS-{0}'.format(version)
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False]}
@@ -33,7 +33,7 @@ class OisConan(ConanFile):
                 installer.install("libx11-dev:amd64")
 
     def source(self):
-        tools.get("https://github.com/wgois/OIS/archive/v1-3.zip")
+        tools.get("https://github.com/wgois/OIS/archive/v{0}.zip".format(self.version))
         os.rename('CMakeLists-OIS.txt', '{0}/CMakeLists.txt'.format(self.folder))
         apply_patches('patches', self.folder)
 
