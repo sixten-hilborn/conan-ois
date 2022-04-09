@@ -1,3 +1,5 @@
+**OBSOLETE**: Use https://github.com/conan-io/conan-center-index/tree/master/recipes/ois instead.
+
 [![Build Status](https://travis-ci.org/sixten-hilborn/conan-ois.svg?branch=master)](https://travis-ci.org/sixten-hilborn/conan-ois)
 [![Build status](https://ci.appveyor.com/api/projects/status/hwbmfy82ax14dv59?svg=true)](https://ci.appveyor.com/project/sixten-hilborn/conan-ois)
 
